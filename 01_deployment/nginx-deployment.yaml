@@ -1,0 +1,24 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: nginxup
+  name: nginxup
+spec:
+  replicas: 5
+  strategy:
+    type: RollingUpdate
+    rolling-update:
+      maxSurge: 1
+      maxUnavailable: 2
+  selector:
+    matchLabels:
+      app: nginxup
+  template:
+    metadata:
+      labels:
+        app: nginxup
+    spec:
+      containers:
+      - image: nginx:1.9
+        name: nginx
